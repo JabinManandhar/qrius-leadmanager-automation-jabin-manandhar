@@ -54,5 +54,5 @@ test.describe("Login", () => {
       "Invalid username or password",
     );
   });
-  // Output: passed, got error and still on the login page
+  // Output: passed; got the error message and still on the login page
 });
