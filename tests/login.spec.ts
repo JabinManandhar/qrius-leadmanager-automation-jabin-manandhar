@@ -23,7 +23,8 @@ test.describe("Login", () => {
     await page.getByTestId("username").fill("admin.qrius");
     await page.getByTestId("password").fill("Admin@123");
     await page.getByTestId("login-button").click();
-    await expect(page).toHaveURL(/leads/);
+    // await expect(page).toHaveURL(/leads/); //this could mean the test works if "leads" appears anywhere in the URL
+    await expect(page).toHaveURL(/\/leads$/); //check exact match for URL ending with /leads; nothing after /leads
   });
   // Output: valid admin successfully reaches Leads page
 
@@ -35,7 +36,7 @@ test.describe("Login", () => {
     await page.getByTestId("username").fill("agent.qrius");
     await page.getByTestId("password").fill("Agent@123");
     await page.getByTestId("login-button").click();
-    await expect(page).toHaveURL(/leads/);
+    await expect(page).toHaveURL(/\/leads$/); //strict match for "/leads" in the URL
     await expect(page.getByTestId("nav-role")).toHaveText("AGENT");
   });
   // Output: passed as expected
@@ -49,7 +50,8 @@ test.describe("Login", () => {
     await page.getByTestId("username").fill("agent.qrius");
     await page.getByTestId("password").fill("123");
     await page.getByTestId("login-button").click();
-    await expect(page).toHaveURL(/login/); //check the url
+    // await expect(page).toHaveURL(/login/); //check the url
+    await expect(page).toHaveURL(/\/login$/); //strict match for "/login" in the URL
     await expect(page.getByTestId("login-error")).toHaveText(
       "Invalid username or password",
     );
