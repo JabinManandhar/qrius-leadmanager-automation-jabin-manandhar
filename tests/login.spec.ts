@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { login } from "./helpers/auth";
+import { admin, agent } from "./data/users";
 
 //Using describe block to group related tests
 test.describe("Login", () => {
@@ -20,9 +22,11 @@ test.describe("Login", () => {
   test("should reach leads page with valid admin credentials", async ({
     page,
   }) => {
-    await page.getByTestId("username").fill("admin.qrius");
-    await page.getByTestId("password").fill("Admin@123");
-    await page.getByTestId("login-button").click();
+    // await page.getByTestId("username").fill("admin.qrius");
+    // await page.getByTestId("password").fill("Admin@123");
+    // await page.getByTestId("login-button").click();
+    await login(page, admin);
+
     // await expect(page).toHaveURL(/leads/); //this could mean the test works if "leads" appears anywhere in the URL
     await expect(page).toHaveURL(/\/leads$/); //check exact match for URL ending with /leads; nothing after /leads
   });
@@ -33,9 +37,12 @@ test.describe("Login", () => {
   test("should display 'Agent' inside the Leads page after valid agent login", async ({
     page,
   }) => {
-    await page.getByTestId("username").fill("agent.qrius");
-    await page.getByTestId("password").fill("Agent@123");
-    await page.getByTestId("login-button").click();
+    // await page.getByTestId("username").fill("agent.qrius");
+    // await page.getByTestId("password").fill("Agent@123");
+    // await page.getByTestId("login-button").click();
+
+    await login(page, agent); //using helper function to avoid same repeatable login code
+
     await expect(page).toHaveURL(/\/leads$/); //strict match for "/leads" in the URL
     await expect(page.getByTestId("nav-role")).toHaveText("AGENT");
   });
@@ -50,6 +57,7 @@ test.describe("Login", () => {
     await page.getByTestId("username").fill("agent.qrius");
     await page.getByTestId("password").fill("123");
     await page.getByTestId("login-button").click();
+
     // await expect(page).toHaveURL(/login/); //check the url
     await expect(page).toHaveURL(/\/login$/); //strict match for "/login" in the URL
     await expect(page.getByTestId("login-error")).toHaveText(
