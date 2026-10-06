@@ -23,5 +23,15 @@ Error: expect(locator).toHaveCount(expected) failed
 Error: expect(locator).toHaveText(expected) failed  
 **Surprise**: the count text doesn't update. 
 
+**Failed Test 03**: - Adding a lead with a chosen status saves that lead with that status.
+**Scope**: add-leads.spec.ts   
+**Prediction**: adding a lead with a chosen status saves the lead with same status 
+**Actual Output**: while the lead details are saved and appear on the list, every status gets the same 'New' status
+**Verdict**: The application has a bug  
+**Reason**: my code checks for the exact status that was selected when adding a lead. But, the application doesn't use that status. It uses 'New' for all leads added later.
+**Trace viewer output**: @add-leads.spec.ts:59
+Error: expect(locator).toHaveText(expected) failed
+**Surprise**: the status doesn't update according to the chosen status while adding a lead   
+
 
 
