@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { login } from "./helpers/auth";
-import { admin, agent } from "./data/users";
+import { admin, agent } from "../test-data/users";
 
 test.describe("verify if only admin can delete the lead but agent cannot", () => {
   // 1. - An admin can delete a lead and the row disappears.
